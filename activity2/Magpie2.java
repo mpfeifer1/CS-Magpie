@@ -42,9 +42,7 @@ public class Magpie2
               || statement.indexOf(" brother") >= 0) {
             response = "Tell me more about your family.";
         }
-        else if (statement.indexOf(" dog" ) >= 0
-              || statement.indexOf(" cat" ) >= 0
-              || statement.indexOf(" fish") >= 0) {
+        else if (containsWord(response, "dog")) {
             response = "Tell me more about your pets.";
         }
         else if (statement.indexOf("Mr. ") >= 0) {
@@ -64,28 +62,27 @@ public class Magpie2
     }
 
     public boolean containsWord(String sentence, String word) {
-        boolean contains = sentence.indexOf(word);
-        int firstCharOfWord = firstChar(sentence, word);
-        int finalCharOfWord = firstChar(sentence, word) + word.length();
+        boolean contains = sentence.indexOf(word) >= 0;
+        int firstInstanceOfWord = -1;
         if(contains) {
-            boolean guarunteed = false;
-            if(sentence.length() == word.length()) {
-                guarunteed = true;
-            }
-            if() {
-                guarunteed = true;
-            }
+            firstInstanceOfWord = firstInstance(sentence, word);            
         }
-        return (contains && guarunteed);
+        return firstInstanceOfWord > 0;
     }
     
-    public int firstChar(String sentence, String word) {
-        
+    public int firstInstance(String sentence, String word) {
+        int firstChar = (sentence.indexOf(word) - 1);
+        int finalChar = (sentence.indexOf(word) + 1 + word.length());
+        if(((sentence.substring(firstChar, firstChar + 1).equals(" ")) || (sentence.substring(firstChar, firstChar + 1) == null)) && 
+           ((sentence.substring(finalChar, finalChar + 1).equals(" ")) || (sentence.substring(finalChar, finalChar + 1) == null))) {
+               return sentence.indexOf(word);
+        }
+        return -1;
     }
     
-    public int lastChar(String sentence, String word) {
-        
-    }
+    //public int lastChar(String sentence, String word) {
+    //    //TODO
+    //}
     /**
      * Pick a default response to use if nothing else fits.
      * @return a non-committal string
