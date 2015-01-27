@@ -36,19 +36,25 @@ public class Magpie2
         if (statement.indexOf("no ") >= 0) {
             response = "Why so negative?";
         }
-        else if (statement.indexOf(" mother" ) >= 0
-              || statement.indexOf(" father" ) >= 0
-              || statement.indexOf(" sister" ) >= 0
-              || statement.indexOf(" brother") >= 0) {
+        else if ((containsWord(statement, "mother")  ||
+                 (containsWord(statement, "father")) ||
+                 (containsWord(statement, "sister")) ||
+                 (containsWord(statement, "brother")))) {
             response = "Tell me more about your family.";
         }
-        else if (containsWord(response, "dog")) {
+        else if ((containsWord(statement, "dog")) ||
+                 (containsWord(statement, "cat")) ||
+                 (containsWord(statement, "fish"))){
             response = "Tell me more about your pets.";
         }
-        else if (statement.indexOf("Mr. ") >= 0) {
-            int spaceAfterMr = statement.lastIndexOf("Mr. ") + 4;
-            String firstName = statement.substring(spaceAfterMr, statement.indexOf(" ", spaceAfterMr));
-            if(firstName.toLowerCase().contains("maine")){
+        else if (containsWord(statement, "Mr.")) {
+            int nameIndex = statement.lastIndexOf("Mr.") + 5; // 4 is the length of Mr.
+            int nameIndexEnd = nameIndex + statement.indexOf(" ", nameIndex);
+            System.out.println(nameIndex);
+            System.out.println(nameIndexEnd);
+            String firstName = statement.substring(nameIndex, nameIndex );       
+            if(containsWord(statement, "Maine") ||
+               containsWord(statement, "Simonson")){
                 response = "Mr. " + firstName + " sounds seriously lame";
             }
             else {
@@ -67,22 +73,26 @@ public class Magpie2
         if(contains) {
             firstInstanceOfWord = firstInstance(sentence, word);            
         }
-        return firstInstanceOfWord > 0;
+        return firstInstanceOfWord >= 0;
     }
     
     public int firstInstance(String sentence, String word) {
-        int firstChar = (sentence.indexOf(word) - 1);
-        int finalChar = (sentence.indexOf(word) + 1 + word.length());
-        if(((sentence.substring(firstChar, firstChar + 1).equals(" ")) || (sentence.substring(firstChar, firstChar + 1) == null)) && 
-           ((sentence.substring(finalChar, finalChar + 1).equals(" ")) || (sentence.substring(finalChar, finalChar + 1) == null))) {
+        int firstChar = (sentence.indexOf(word));
+        int finalChar = (sentence.indexOf(word) + word.length() - 1);
+        if(sameCharacter(sentence, (firstChar - 1), " ") &&
+           sameCharacter(sentence, (finalChar + 1), " ")) {
                return sentence.indexOf(word);
         }
         return -1;
     }
     
-    //public int lastChar(String sentence, String word) {
-    //    //TODO
-    //}
+    public boolean sameCharacter(String sentence, int character, String compareChar){
+        if(character >= 0 && !(character >= sentence.length())) {
+            return (sentence.substring(character, character + 1).equals(compareChar));
+        }
+        return true;
+    }
+
     /**
      * Pick a default response to use if nothing else fits.
      * @return a non-committal string
