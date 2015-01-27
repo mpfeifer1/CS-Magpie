@@ -33,7 +33,10 @@ public class Magpie2
     public String getResponse(String statement)
     {
         String response = "";
-        if (statement.indexOf("no ") >= 0) {
+        if(statement.trim().length() == 0) {
+            response = "Cat got your tongue?";
+        }
+        else if (statement.indexOf("no ") >= 0) {
             response = "Why so negative?";
         }
         else if ((containsWord(statement, "mother")  ||
@@ -42,19 +45,21 @@ public class Magpie2
                  (containsWord(statement, "brother")))) {
             response = "Tell me more about your family.";
         }
-        else if ((containsWord(statement, "dog")) ||
-                 (containsWord(statement, "cat")) ||
-                 (containsWord(statement, "fish"))){
+        else if ((containsWord(statement, "dog" )) ||
+                 (containsWord(statement, "dogs")) ||
+                 (containsWord(statement, "cat" )) ||
+                 (containsWord(statement, "cats")) ||
+                 (containsWord(statement, "fish"))) {
             response = "Tell me more about your pets.";
         }
         else if (containsWord(statement, "Mr.")) {
             int nameIndex = statement.lastIndexOf("Mr.") + 5; // 4 is the length of Mr.
-            int nameIndexEnd = nameIndex + statement.indexOf(" ", nameIndex);
-            System.out.println(nameIndex);
-            System.out.println(nameIndexEnd);
-            String firstName = statement.substring(nameIndex, nameIndex );       
-            if(containsWord(statement, "Maine") ||
-               containsWord(statement, "Simonson")){
+            int nameIndexEnd = statement.indexOf(" ", nameIndex);
+            String firstName = statement.substring(nameIndex - 1, nameIndexEnd);   
+            firstName = firstName.replace(".", "");
+            firstName = firstName.replace(",", "");
+            if(firstName.toLowerCase().equals("maine") ||
+               firstName.toLowerCase().equals("simonson")){
                 response = "Mr. " + firstName + " sounds seriously lame";
             }
             else {
@@ -68,10 +73,10 @@ public class Magpie2
     }
 
     public boolean containsWord(String sentence, String word) {
-        boolean contains = sentence.indexOf(word) >= 0;
+        boolean contains = sentence.toLowerCase().indexOf(word.toLowerCase()) >= 0;
         int firstInstanceOfWord = -1;
         if(contains) {
-            firstInstanceOfWord = firstInstance(sentence, word);            
+            firstInstanceOfWord = firstInstance(sentence.toLowerCase(), word.toLowerCase());            
         }
         return firstInstanceOfWord >= 0;
     }
@@ -79,8 +84,12 @@ public class Magpie2
     public int firstInstance(String sentence, String word) {
         int firstChar = (sentence.indexOf(word));
         int finalChar = (sentence.indexOf(word) + word.length() - 1);
-        if(sameCharacter(sentence, (firstChar - 1), " ") &&
-           sameCharacter(sentence, (finalChar + 1), " ")) {
+        if((sameCharacter(sentence, (firstChar - 1), " ")   &&
+           ((sameCharacter(sentence, (finalChar + 1), " ")) ||
+            (sameCharacter(sentence, (finalChar + 1), "!")) ||
+            (sameCharacter(sentence, (finalChar + 1), ".")) ||
+            (sameCharacter(sentence, (finalChar + 1), ",")) ||
+            (sameCharacter(sentence, (finalChar + 1), "?"))))) {
                return sentence.indexOf(word);
         }
         return -1;
