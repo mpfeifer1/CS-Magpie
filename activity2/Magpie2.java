@@ -52,9 +52,15 @@ public class Magpie2
                  (containsWord(statement, "fish"))) {
             response = "Tell me more about your pets.";
         }
+        else if (containsWord(statement, "dakota")) {
+            response = "You're right. Dakota is an idiot!";
+        }
         else if (containsWord(statement, "Mr.")) {
             int nameIndex = statement.lastIndexOf("Mr.") + 5; // 4 is the length of Mr.
-            int nameIndexEnd = statement.indexOf(" ", nameIndex);
+            int nameIndexEnd = statement.length();
+            if(statement.indexOf(" ", nameIndex) >= 0) {
+                nameIndexEnd = statement.indexOf(" ", nameIndex);
+            }
             String firstName = statement.substring(nameIndex - 1, nameIndexEnd);   
             firstName = firstName.replace(".", "");
             firstName = firstName.replace(",", "");
