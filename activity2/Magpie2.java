@@ -1,5 +1,7 @@
 package activity2;
 
+import activity2.WordProcessing;
+
 /**
  * A program to carry on conversations with a human user.
  * This is the initial version that:  
@@ -12,8 +14,7 @@ package activity2;
  * @author Laurie White
  * @version April 2012
  */
-public class Magpie2
-{
+public class Magpie2 extends WordProcessing {
     /**
      * Get a default greeting   
      * @return a greeting
@@ -76,36 +77,6 @@ public class Magpie2
             response = getRandomResponse();
         }
         return response;
-    }
-
-    public boolean containsWord(String sentence, String word) {
-        boolean contains = sentence.toLowerCase().indexOf(word.toLowerCase()) >= 0;
-        int firstInstanceOfWord = -1;
-        if(contains) {
-            firstInstanceOfWord = firstInstance(sentence.toLowerCase(), word.toLowerCase());            
-        }
-        return firstInstanceOfWord >= 0;
-    }
-    
-    public int firstInstance(String sentence, String word) {
-        int firstChar = (sentence.indexOf(word));
-        int finalChar = (sentence.indexOf(word) + word.length() - 1);
-        if((sameCharacter(sentence, (firstChar - 1), " ")   &&
-           ((sameCharacter(sentence, (finalChar + 1), " ")) ||
-            (sameCharacter(sentence, (finalChar + 1), "!")) ||
-            (sameCharacter(sentence, (finalChar + 1), ".")) ||
-            (sameCharacter(sentence, (finalChar + 1), ",")) ||
-            (sameCharacter(sentence, (finalChar + 1), "?"))))) {
-               return sentence.indexOf(word);
-        }
-        return -1;
-    }
-    
-    public boolean sameCharacter(String sentence, int character, String compareChar){
-        if(character >= 0 && !(character >= sentence.length())) {
-            return (sentence.substring(character, character + 1).equals(compareChar));
-        }
-        return true;
     }
 
     /**
