@@ -1,5 +1,6 @@
 package activity2;
 
+import java.util.ArrayList;
 
 /**
  * Write a description of class WordProcessing here.
@@ -24,7 +25,7 @@ public class WordProcessing
         if((sameCharacter(sentence, (firstChar - 1), " ")   &&
            ((sameCharacter(sentence, (finalChar + 1), " ")) ||
             (sameCharacter(sentence, (finalChar + 1), "!")) ||
-            (sameCharacter(sentence, (finalChar + 1), ".")) || // TODO
+            (sameCharacter(sentence, (finalChar + 1), ".")) ||
             (sameCharacter(sentence, (finalChar + 1), ",")) ||
             (sameCharacter(sentence, (finalChar + 1), "?"))))) {
                return sentence.indexOf(word);
@@ -41,7 +42,7 @@ public class WordProcessing
 
     public static String getNextWord(String sentence, String firstWord) {
         if(containsWord(sentence, firstWord)) {
-            int secondWordIndex    = sentence.lastIndexOf(firstWord) + firstWord.length() + 2; // The one is to account for the extra space
+            int secondWordIndex    = sentence.lastIndexOf(firstWord) + firstWord.length() + 2; // The one is to account for the extra space, the other is for the off-by-one error in length()
             int secondWordIndexEnd = sentence.length(); // Sets default as last character of string
             if(sentence.indexOf(" ", secondWordIndex) >= 0) {
                 secondWordIndexEnd = sentence.indexOf(" ", secondWordIndex);
@@ -58,5 +59,15 @@ public class WordProcessing
             word = word.replace("?", "");
             word = word.replace("!", "");
             return word;
+    }
+    
+    public static ArrayList<String> containsWordList(String sentence, ArrayList<String> words) {
+        ArrayList<String> contained = new ArrayList<String>();
+        for(String word : words) {
+            if(containsWord(sentence, word)) {
+                contained.add(word);
+            }
+        }
+        return contained;
     }
 }

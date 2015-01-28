@@ -1,6 +1,7 @@
 package activity2;
 
 import activity2.WordProcessing;
+import java.util.ArrayList;
 
 /**
  * A program to carry on conversations with a human user.
@@ -34,23 +35,30 @@ public class Magpie2 extends WordProcessing {
     public String getResponse(String statement)
     {
         String response = "";
+        ArrayList<String> family = new ArrayList<>();
+        ArrayList<String> pets   = new ArrayList<>();
+        
+        family.add("mother");
+        family.add("father");
+        family.add("brother");
+        family.add("sister");
+        
+        pets.add("dog");
+        pets.add("dogs");
+        pets.add("cat");
+        pets.add("cats");
+        pets.add("fish");
+        
         if(statement.trim().length() == 0) {
             response = "Cat got your tongue?";
         }
         else if (statement.indexOf("no ") >= 0) {
             response = "Why so negative?";
         }
-        else if ((containsWord(statement, "mother")  ||
-                 (containsWord(statement, "father")) ||
-                 (containsWord(statement, "sister")) ||
-                 (containsWord(statement, "brother")))) {
+        else if (!containsWordList(statement, family).isEmpty()) {
             response = "Tell me more about your family.";
         }
-        else if ((containsWord(statement, "dog" )) ||
-                 (containsWord(statement, "dogs")) ||
-                 (containsWord(statement, "cat" )) ||
-                 (containsWord(statement, "cats")) ||
-                 (containsWord(statement, "fish"))) {
+        else if (!containsWordList(statement, pets).isEmpty()) {
             response = "Tell me more about your pets.";
         }
         else if (containsWord(statement, "dakota")) {
