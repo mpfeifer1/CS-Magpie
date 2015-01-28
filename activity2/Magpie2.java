@@ -18,13 +18,16 @@ public class Magpie2 extends WordProcessing {
         family.add("mother");
         family.add("father");
         family.add("brother");
+        family.add("brothers");
         family.add("sister");
+        family.add("sisters");
         
         pets.add("dog");
         pets.add("dogs");
         pets.add("cat");
         pets.add("cats");
         pets.add("fish");
+        pets.add("fishes");
         
         if(statement.trim().length() == 0) {
             response = "Cat got your tongue?";
