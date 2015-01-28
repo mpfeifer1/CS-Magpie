@@ -70,4 +70,23 @@ public class WordProcessing
         }
         return contained;
     }
+    
+    public static String appendWords(ArrayList<String> words) {
+        String list = "";
+        for(int i = 0; i < words.size(); i++) {
+            list += words.get(i);
+            if(i + 2 == words.size()) {
+                list += " and ";
+                
+            }
+            else if(i + 1 == words.size()) {
+                list += ".";
+                
+            }
+            else {
+                list += ", ";
+            }
+        }
+        return list;
+    }
 }

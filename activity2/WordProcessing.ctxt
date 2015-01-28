@@ -11,4 +11,6 @@ comment4.params=word
 comment4.target=java.lang.String\ removePunctuation(java.lang.String)
 comment5.params=sentence\ words
 comment5.target=java.util.ArrayList\ containsWordList(java.lang.String,\ java.util.ArrayList)
-numComments=6
+comment6.params=words
+comment6.target=java.lang.String\ appendWords(java.util.ArrayList)
+numComments=7

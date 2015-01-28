@@ -3,35 +3,12 @@ package activity2;
 import activity2.WordProcessing;
 import java.util.ArrayList;
 
-/**
- * A program to carry on conversations with a human user.
- * This is the initial version that:  
- * <ul><li>
- *       Uses indexOf to find strings
- * </li><li>
- *          Handles responding to simple words and phrases 
- * </li></ul>
- * This version uses a nested if to handle default responses.
- * @author Laurie White
- * @version April 2012
- */
 public class Magpie2 extends WordProcessing {
-    /**
-     * Get a default greeting   
-     * @return a greeting
-     */
     public String getGreeting()
     {
         return "Hello, let's talk.";
     }
     
-    /**
-     * Gives a response to a user statement
-     * 
-     * @param statement
-     *            the user statement
-     * @return a response based on the rules given
-     */
     public String getResponse(String statement)
     {
         String response = "";
@@ -55,11 +32,13 @@ public class Magpie2 extends WordProcessing {
         else if (statement.indexOf("no ") >= 0) {
             response = "Why so negative?";
         }
-        else if (!containsWordList(statement, family).isEmpty()) {
-            response = "Tell me more about your family.";
+        else if (containsWordList(statement, family).size() > 0) {
+            response = "Tell me more about your " +
+                       appendWords(containsWordList(statement, family));
         }
         else if (!containsWordList(statement, pets).isEmpty()) {
-            response = "Tell me more about your pets.";
+            response = "Tell me more about your " +
+                       appendWords(containsWordList(statement, pets));
         }
         else if (containsWord(statement, "dakota")) {
             response = "You're right. Dakota is an idiot!";
@@ -80,10 +59,6 @@ public class Magpie2 extends WordProcessing {
         return response;
     }
 
-    /**
-     * Pick a default response to use if nothing else fits.
-     * @return a non-committal string
-     */
     private String getRandomResponse()
     {
         final int NUMBER_OF_RESPONSES = 4;
