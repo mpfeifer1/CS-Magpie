@@ -77,11 +77,9 @@ public class WordProcessing
             list += words.get(i);
             if(i + 2 == words.size()) {
                 list += " and ";
-                
             }
             else if(i + 1 == words.size()) {
                 list += ".";
-                
             }
             else {
                 list += ", ";

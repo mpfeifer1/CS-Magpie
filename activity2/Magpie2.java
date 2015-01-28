@@ -32,7 +32,7 @@ public class Magpie2 extends WordProcessing {
         if(statement.trim().length() == 0) {
             response = "Cat got your tongue?";
         }
-        else if (statement.indexOf("no ") >= 0) {
+        else if (containsWord(statement, "no")) {
             response = "Why so negative?";
         }
         else if (containsWordList(statement, family).size() > 0) {
