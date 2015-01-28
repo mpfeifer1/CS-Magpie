@@ -24,7 +24,7 @@ public class WordProcessing
         if((sameCharacter(sentence, (firstChar - 1), " ")   &&
            ((sameCharacter(sentence, (finalChar + 1), " ")) ||
             (sameCharacter(sentence, (finalChar + 1), "!")) ||
-            (sameCharacter(sentence, (finalChar + 1), ".")) ||
+            (sameCharacter(sentence, (finalChar + 1), ".")) || // TODO
             (sameCharacter(sentence, (finalChar + 1), ",")) ||
             (sameCharacter(sentence, (finalChar + 1), "?"))))) {
                return sentence.indexOf(word);
@@ -39,4 +39,24 @@ public class WordProcessing
         return true;
     }
 
+    public static String getNextWord(String sentence, String firstWord) {
+        if(containsWord(sentence, firstWord)) {
+            int secondWordIndex    = sentence.lastIndexOf(firstWord) + firstWord.length() + 2; // The one is to account for the extra space
+            int secondWordIndexEnd = sentence.length(); // Sets default as last character of string
+            if(sentence.indexOf(" ", secondWordIndex) >= 0) {
+                secondWordIndexEnd = sentence.indexOf(" ", secondWordIndex);
+            }
+            String secondWord = removePunctuation(sentence.substring(secondWordIndex - 1, secondWordIndexEnd));
+            return secondWord;
+        }
+        return "ERROR - WORD NOT FOUND";
+    }
+    
+    public static String removePunctuation(String word) {
+            word = word.replace(".", "");
+            word = word.replace(",", "");
+            word = word.replace("?", "");
+            word = word.replace("!", "");
+            return word;
+    }
 }

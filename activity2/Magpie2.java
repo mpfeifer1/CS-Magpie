@@ -57,14 +57,7 @@ public class Magpie2 extends WordProcessing {
             response = "You're right. Dakota is an idiot!";
         }
         else if (containsWord(statement, "Mr.")) {
-            int nameIndex = statement.lastIndexOf("Mr.") + 5; // 4 is the length of Mr.
-            int nameIndexEnd = statement.length();
-            if(statement.indexOf(" ", nameIndex) >= 0) {
-                nameIndexEnd = statement.indexOf(" ", nameIndex);
-            }
-            String firstName = statement.substring(nameIndex - 1, nameIndexEnd);   
-            firstName = firstName.replace(".", "");
-            firstName = firstName.replace(",", "");
+            String firstName = getNextWord(statement, "Mr.");
             if(firstName.toLowerCase().equals("maine") ||
                firstName.toLowerCase().equals("simonson")){
                 response = "Mr. " + firstName + " sounds seriously lame";
